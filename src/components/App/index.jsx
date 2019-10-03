@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-const Tasks = ({tasks}) => <div>{tasks.map(item => <div><h1>{item.name}</h1><p>{item.descr}</p></div>)}</div>;
 
 class TaskItem extends Component {
     constructor(props) {
