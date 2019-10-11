@@ -1,27 +1,20 @@
 import React, {Component} from 'react';
+import style from "./Component.module.css";
 
 
 class TaskItem extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div>
-                <p><b>{this.props.name}</b>: {this.props.descr}. Приоритет: <b>{this.props.priority}</b></p>
+                <p className={style.taskItem}><b>{this.props.name}</b>: {this.props.descr}. Priority: <b>{this.props.priority}</b></p>
+                <button onClick={() => this.props.onDelete(this.props.id)}>Delete me</button>
             </div>
         )
     }
 }
 
 class TaskForm extends Component {
-    constructor(props) {
-        super(props);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
-
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault();
         let new_task = {
             id: this.props.last_id + 1,
@@ -39,10 +32,10 @@ class TaskForm extends Component {
             <div>
                 <form id="task_form" onSubmit={this.onSubmit} ref='form'>
                     Название:
-                    <input type='text' ref='name'/>
+                    <input className={style.taskInput} type='text' ref='name'/>
                     <br/>
                     Описание:
-                    <input type='text' ref='descr'/>
+                    <input className={style.taskInput} type='text' ref='descr'/>
                     <br/>
                     Приоритет:
                     <select ref='priority'>
@@ -51,7 +44,7 @@ class TaskForm extends Component {
                         <option value={3}>3</option>
                     </select>
                     <br/>
-                    <button type='submit'>Добавить новую задачу</button>
+                    <button type='submit'>New task</button>
                 </form>
             </div>
         )
@@ -59,23 +52,17 @@ class TaskForm extends Component {
 }
 
 class App extends  Component {
-    constructor(props) {
-        super(props);
-        this.addItem = this.addItem.bind(this);
-        this.sortByName = this.sortByName.bind(this);
-        this.sortByPrior = this.sortByPrior.bind(this);
-    }
     state = {
         tasks: [],
     };
 
-    addItem(task_item) {
+    addItem = task_item => {
         let arr = this.state.tasks;
         arr.push(task_item);
         this.setState({tasks: arr});
     }
 
-    sortByName(event) {
+    sortByName = event => {
         event.preventDefault();
         let {tasks} = this.state;
         let comparator = (a,b) => {
@@ -92,7 +79,7 @@ class App extends  Component {
         this.setState({tasks: tasks});
     }
 
-    sortByPrior(event) {
+    sortByPrior = event => {
         event.preventDefault();
         let {tasks} = this.state;
         let comparator = (a,b) => {
@@ -109,14 +96,21 @@ class App extends  Component {
         this.setState({tasks: tasks});
     }
 
+    deleteItem = id => {
+        let arr = this.state.tasks;
+        let idx = arr.findIndex((el, idx) => {return el.id === id});
+        arr.splice(idx, 1);
+        this.setState({tasks: arr});
+    }
+
     render() {
         let {tasks} = this.state;
         return (
             <div>
-                <h1>Осталось выполнить дел: {tasks.length}</h1>
-                {tasks.map(item => <TaskItem name={item.name} descr={item.descr} priority={item.prior}/>)}
-                <button onClick={this.sortByName}>Сортировать по имени</button>
-                <button onClick={this.sortByPrior}>Сортировать по приоритету</button>
+                <h1>Tasks left: {tasks.length}</h1>
+                <div className={style.container}>{tasks.map(item => <TaskItem key={item.id} id={item.id} name={item.name} descr={item.descr} priority={item.prior} onDelete={this.deleteItem}/>)}</div>
+                <button onClick={this.sortByName}>Sort by name</button>
+                <button onClick={this.sortByPrior}>Sort by prior</button>
                 <TaskForm addItem={this.addItem} last_id = {tasks.length}/>
             </div>
         )
