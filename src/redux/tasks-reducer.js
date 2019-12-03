@@ -9,7 +9,7 @@ const TOGGLE_LOADING_TASKS = 'TOGGLE-LOADING-TASKS';
 
 const initialState = {
     tasks: [],
-    isInitialized: false,
+    isLoading: true,
     projectId: null
 };
 
@@ -40,7 +40,7 @@ const tasksReducer = (state = initialState, action) => {
         case TOGGLE_LOADING_TASKS:
             return {
                 ...state,
-                isInitialized: action.toggle
+                isLoading: action.toggle
             };
         default:
             return state;
@@ -54,7 +54,7 @@ export const initializedSuccessAC = (projectId) => ({type: TASKS_INITIALIZED_SUC
 export const toggleLoadingTasksAC = (toggle) => ({type: TOGGLE_LOADING_TASKS, toggle});
 
 export const addTaskTC = (projectId, name, description, priority) => (dispatch) => {
-    dispatch(toggleLoadingTasksAC(false));
+    dispatch(toggleLoadingTasksAC(true));
     priority = parseInt(priority, 10);
     addTask(projectId, name, description, priority)
         .then(response => {
@@ -65,11 +65,11 @@ export const addTaskTC = (projectId, name, description, priority) => (dispatch) 
 };
 
 export const getTasksTC = (projectId) => (dispatch) => {
-    dispatch(toggleLoadingTasksAC(false));
+    dispatch(toggleLoadingTasksAC(true));
     return getTasks(projectId)
         .then(response => {
             dispatch(setTasksAC(response));
-            dispatch(toggleLoadingTasksAC(true));
+            dispatch(toggleLoadingTasksAC(false));
         });
 };
 

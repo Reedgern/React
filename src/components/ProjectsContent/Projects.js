@@ -6,13 +6,13 @@ import ProjectForm from "./ProjectForm/ProjectForm";
 
 class Projects extends React.Component {
     componentDidMount() {
-        if (!this.props.isInitialized) {
+        if (this.props.isLoading) {
             this.props.getProjectsTC();
         }
     }
 
     render() {
-        if (!this.props.isInitialized) {
+        if (this.props.isLoading) {
             return (
                 <div>
                     Loading...
@@ -30,7 +30,7 @@ class Projects extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isInitialized: state.projects.isInitialized
+        isLoading: state.projects.isLoading
     };
 };
 

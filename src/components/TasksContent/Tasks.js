@@ -12,7 +12,7 @@ class Tasks extends React.Component {
     }
 
     render() {
-        if (!this.props.isInitialized) {
+        if (this.props.isLoading) {
             return (
                 <div>Loading...</div>
             );
@@ -28,7 +28,7 @@ class Tasks extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isInitialized: state.tasks.isInitialized
+        isLoading: state.tasks.isLoading
     };
 };
 
