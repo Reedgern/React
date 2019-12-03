@@ -1,0 +1,18 @@
+.item {
+    color: black;
+    background-size: 120%;
+    background-position: -100px -10px;
+    border-radius: 25px;
+    box-shadow: black 2px 2px 5px 0;
+    border: 2px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    vertical-align: middle;
+    position: relative;
+}
+
+.item:hover {
+    border: 2px solid gold;
+}
