@@ -1,0 +1,9 @@
+.ProjectsContainer {
+    border: 5px solid;
+    width: 300px;
+    margin-top: 30px;
+    /*margin-left: 20px;*/
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+}

@@ -1,0 +1,8 @@
+.ProjectForm {
+    border: 2px solid blue;
+    width: 200px;
+    margin-top: 20px;
+    border-radius: 5px;
+    position: relative;
+    padding: 10px;
+}

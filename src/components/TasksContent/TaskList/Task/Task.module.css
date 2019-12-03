@@ -7,7 +7,7 @@
     border: 2px solid black;
     padding: 10px;
     margin-bottom: 20px;
-    font-size: 32px;
+    font-size: 18px;
     font-weight: bold;
     vertical-align: middle;
     position: relative;
@@ -15,4 +15,5 @@
 
 .item:hover {
     border: 2px solid gold;
+    box-shadow: gold 2px 2px 5px 0;
 }
